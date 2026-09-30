@@ -90,6 +90,11 @@ UNINSTALL_PACKAGES=(
   com.google.android.apps.tachyon          # Google Meet (preinstalled on some)
   com.sec.android.easyMover                # Smart Switch transfer agent
   com.sec.android.easyMover.Agent          # Smart Switch receiving stub
+
+  # --- Universal Samsung/Google services ---
+  com.samsung.android.scloud               # Samsung Cloud
+  com.samsung.android.app.homestar         # SmartThings
+  com.google.android.ims                    # Google/Jibe RCS service
 )
 
 # ---------------------------------------------------------------------------
