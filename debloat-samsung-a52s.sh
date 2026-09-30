@@ -119,10 +119,10 @@ PACKAGES=(
 )
 
 # Apps set to the RESTRICTED standby bucket (bucket 45).
+# Add your own heavy/background apps here, one package per line, e.g.:
+#   com.example.socialapp
+#   com.example.shoppingapp
 RESTRICTED_APPS=(
-  com.instagram.android
-  app.alextran.immich
-  com.apps.MyXL
 )
 
 # ---------------------------------------------------------------------------
@@ -144,9 +144,8 @@ RESTRICTED_APPS=(
 #   com.samsung.android.peripheral.framework
 #   com.samsung.cmfa.AuthTouch
 #
-# Kept ENABLED on purpose (BPJS apps):
-#   app.bpjs.mobile
-#   com.bpjstku
+# User-installed apps are left untouched; add any you want to keep out of the
+# script by editing the lists above.
 # ---------------------------------------------------------------------------
 
 apply_disable() {
