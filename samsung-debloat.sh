@@ -94,7 +94,7 @@ UNINSTALL_PACKAGES=(
   # --- Universal Samsung/Google services ---
   com.samsung.android.scloud               # Samsung Cloud
   com.samsung.android.app.homestar         # SmartThings
-  com.google.android.ims                    # Google/Jibe RCS service
+  # com.google.android.ims is KEPT (RCS backend for Google Messages)
 )
 
 # ---------------------------------------------------------------------------
