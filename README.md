@@ -1,64 +1,71 @@
-# Samsung Galaxy A52s 5G — debloat + battery script
+# Samsung debloat script
 
-An ADB script that debloats a Samsung Galaxy A52s 5G (`SM-A528B`, codename `a52sxq`) and applies a few battery tweaks. Everything is **per-user and reversible** — no root required.
+A generic ADB debloat for Samsung One UI devices (tested on Galaxy A52s 5G / `SM-A528B`). It removes/quiets **preinstalled system bloat only** — no user-installed apps, nothing personal or region-specific — so it is safe to run on any Samsung phone. Everything is **per-user and reversible**; no root required.
 
 ## What it does
 
 | Step | Detail |
 |---|---|
-| Installs replacements | Chrome (browser) + Google Messages (SMS) so default roles stay covered |
-| Uninstalls (user 0) | Facebook installers, Bixby suite, Game/AR extras, Samsung Free, OneDrive, and Samsung apps replaced or unused (Internet, Messages, Calendar, Reminder, Pass, Pay, Galaxy Store, Cloud, …) |
+| Uninstalls (user 0) | Facebook/Meta installers, Bixby suite, Game services, AR Emoji/Zone, Samsung Free, Kids Mode, camera sticker preloads, Multi Control, Call & Text on other devices, OneDrive, Google Meet, Smart Switch agents |
+| Replaces stock apps | Samsung Internet → Chrome, Samsung Messages → Google Messages — **only if the replacement is present** |
 | Disables (`disable-user`) | Bixby Routines (`rubin.app`), Google Location History (`gms.location.history`) |
-| Sets defaults | Chrome as default browser, Google Messages as default SMS |
-| Restricts background | Selected heavy apps set to the `restricted` standby bucket |
 
 `gms.location.history` is only ever **disabled**, never uninstalled (it is a Play Services module).
+
+## Safe on any device
+
+Every package is checked before it is touched:
+
+```
+if pkg_installed "$p"; then <act>; else echo "not present"; fi
+```
+
+So a device that doesn't have a given app (e.g. a model without Bixby, or one without a specific app) simply skips it. The browser/SMS swap is also conditional: the stock app is only removed if its replacement is actually installed — otherwise your default SMS/browser is left alone (so you can never end up with no SMS app).
 
 ## Requirements
 
 - Linux/macOS with `adb`
 - USB debugging enabled and the device authorized
-- Only one device attached, or a Samsung among several (auto-detected). Override with `SERIAL=`:
+- One device attached, or a Samsung among several (auto-detected). Override:
 
 ```bash
-SERIAL=RRCRB01AYZX ./debloat-samsung-a52s.sh
+SERIAL=RRCRB01AYZX ./samsung-debloat.sh
 ```
 
 ## Usage
 
 ```bash
-./debloat-samsung-a52s.sh            # apply everything
-./debloat-samsung-a52s.sh restore    # undo: reinstall + re-enable + Samsung defaults
-./debloat-samsung-a52s.sh list       # show current state (disabled, uninstalled, roles, buckets)
+./samsung-debloat.sh            # apply
+./samsung-debloat.sh restore    # undo: reinstall + re-enable + Samsung defaults
+./samsung-debloat.sh list       # show current state
 ```
 
 ## Reversibility
 
-ADB uninstalls are **per user** — the APK stays on the read-only system image, so:
+ADB uninstalls are **per user** — the APK stays on the read-only system image:
 
 ```bash
 adb shell cmd package install-existing --user 0 <package>
 ```
 
-restores it. Disabled packages come back with:
+Disabled packages come back with `adb shell pm enable --user 0 <package>`.
 
-```bash
-adb shell pm enable --user 0 <package>
-```
-
-> Exception: apps that are not on the system image can only be reinstalled from a store.
+> Exception: apps not on the system image can only be reinstalled from a store.
 
 ## Caveats
 
-- **OTA updates may reinstall/re-enable preloads** (and can re-add apps you removed). Re-run the script afterwards.
-- **Samsung Calendar** has no on-image replacement — install one from the Play Store if needed.
-- Removing **Galaxy Store** means no Samsung-app updates through it; restore with `install-existing` if required.
-- Removing **Samsung Pass** drops Samsung-account autofill (use a password manager).
+- **OTA updates may reinstall/re-enable preloads.** Re-run the script afterwards.
+- Uninstalling the stock **browser**/**Messages** is skipped when Chrome/Google Messages aren't installed.
 - Never uninstall/disable phone core packages (dialer, `providers.contacts`, `telecom`, SystemUI, Settings, GMS/GSF, WebView, IMS).
 
 ## Not touched
 
-Device Care (`lool`), Digital Wellbeing, Weather, Adaptive Battery (`turbo`), Android System Intelligence (`as`), Gemini, photo-editor AI models, and user-installed apps.
+Device Care (`lool`), Digital Wellbeing, Weather, Adaptive Battery (`turbo`), Android System Intelligence (`as`), photo-editor AI models, and all user-installed apps.
+
+## Customizing
+
+- Add packages you want removed to `UNINSTALL_PACKAGES`.
+- Add heavy/background apps to `RESTRICTED_APPS` to put them in the `restricted` standby bucket.
 
 ## Disclaimer
 
