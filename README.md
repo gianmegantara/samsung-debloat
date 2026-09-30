@@ -10,7 +10,7 @@ An ADB script that debloats a Samsung Galaxy A52s 5G (`SM-A528B`, codename `a52s
 | Uninstalls (user 0) | Facebook installers, Bixby suite, Game/AR extras, Samsung Free, OneDrive, and Samsung apps replaced or unused (Internet, Messages, Calendar, Reminder, Pass, Pay, Galaxy Store, Cloud, …) |
 | Disables (`disable-user`) | Bixby Routines (`rubin.app`), Google Location History (`gms.location.history`) |
 | Sets defaults | Chrome as default browser, Google Messages as default SMS |
-| Restricts background | Instagram, Immich, MyXL set to the `restricted` standby bucket |
+| Restricts background | Selected heavy apps set to the `restricted` standby bucket |
 
 `gms.location.history` is only ever **disabled**, never uninstalled (it is a Play Services module).
 
@@ -58,7 +58,7 @@ adb shell pm enable --user 0 <package>
 
 ## Not touched
 
-Device Care (`lool`), Digital Wellbeing, Weather, Adaptive Battery (`turbo`), Android System Intelligence (`as`), Gemini, photo-editor AI models, and the BPJS apps.
+Device Care (`lool`), Digital Wellbeing, Weather, Adaptive Battery (`turbo`), Android System Intelligence (`as`), Gemini, photo-editor AI models, and user-installed apps.
 
 ## Disclaimer
 
