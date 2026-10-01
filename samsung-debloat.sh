@@ -121,6 +121,7 @@ UNINSTALL_PACKAGES=(
   com.facebook.katana                      # Facebook
   com.google.android.videos                # Google TV
   com.microsoft.office.outlook             # Outlook
+  com.microsoft.appmanager                 # Link to Windows
 
   # --- Google background agents / telemetry / preloads (Android Auto KEPT) ---
   com.google.android.adservices.api        # Privacy Sandbox ads
@@ -147,6 +148,7 @@ UNINSTALL_PACKAGES=(
   com.samsung.android.visualars             # Visual AR
   com.samsung.android.stickercenter         # AR stickers
   com.samsung.app.newtrim                   # video trim
+  com.sec.android.mimage.avatarstickers     # AR Emoji / avatar stickers
 )
 
 # ---------------------------------------------------------------------------
@@ -183,7 +185,6 @@ PACKAGES=(
   com.samsung.android.rampart
   com.hiya.star                            # Hiya caller ID
   com.samsung.android.smartcallprovider
-  com.microsoft.appmanager                 # Link to Windows
 )
 
 # Apps set to the RESTRICTED standby bucket (bucket 45).
