@@ -121,6 +121,22 @@ UNINSTALL_PACKAGES=(
   com.facebook.katana                      # Facebook
   com.google.android.videos                # Google TV
   com.microsoft.office.outlook             # Outlook
+
+  # --- Google background agents / telemetry / preloads (Android Auto KEPT) ---
+  com.google.android.adservices.api        # Privacy Sandbox ads
+  com.google.mainline.adservices
+  com.google.android.ondevicepersonalization.services
+  com.google.android.feedback
+  com.google.android.partnersetup
+  com.google.android.printservice.recommendation
+  com.google.android.apps.carrier.carrierwifi
+  com.google.android.apps.restore
+  com.google.android.healthconnect.controller
+  com.google.android.health.connect.backuprestore
+  com.google.android.federatedcompute
+  com.google.mainline.telemetry
+  com.snap.camerakit.plugin.v1             # Snapchat camera-kit preload
+  # com.google.android.projection.gearhead is KEPT (Android Auto)
 )
 
 # ---------------------------------------------------------------------------
