@@ -165,7 +165,6 @@ SMS_REPLACEMENT=com.google.android.apps.messaging
 # DISABLED with pm disable-user (state = 3). Kept installed.
 # ---------------------------------------------------------------------------
 PACKAGES=(
-  com.samsung.android.rubin.app            # Bixby Routines
   com.google.android.gms.location.history  # Google Location History (GMS module -> disable, never uninstall)
   com.samsung.android.game.gos             # Game Optimizing Service (privileged; reinstalls itself -> disable, not uninstall)
 
@@ -198,6 +197,7 @@ RESTRICTED_APPS=(
 # Intentionally KEPT (do NOT touch):
 #   com.google.android.as        Android System Intelligence
 #   com.samsung.android.forest   Digital Wellbeing
+#   com.samsung.android.rubin.app / com.samsung.android.app.routines  (Modes and Routines)
 #   com.samsung.android.lool     Device Care
 #   com.sec.android.daemonapp    Weather
 #   com.google.android.apps.turbo  Adaptive Battery
