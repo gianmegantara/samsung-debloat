@@ -59,11 +59,25 @@ pkg_enabled() {
 }
 
 # ---------------------------------------------------------------------------
-# UNINSTALLED for user 0 (pm uninstall --user 0). Presence-checked at runtime.
-# Reverse: `cmd package install-existing --user 0 <pkg>` (system apps) or
-# reinstall from the store (store apps).
+# STORE / USER APPS -- fully uninstalled for user 0 (pm uninstall --user 0).
+# Not on the read-only system image, so removal sticks across reboots.
+# Reverse: reinstall from the store.
 # ---------------------------------------------------------------------------
 UNINSTALL_PACKAGES=(
+  com.facebook.katana                      # Facebook
+  com.google.android.apps.photos           # Google Photos
+  com.google.android.videos                # Google TV
+  com.microsoft.office.outlook             # Outlook
+  com.microsoft.appmanager                 # Link to Windows
+  com.microsoft.skydrive                   # OneDrive
+)
+
+# ---------------------------------------------------------------------------
+# PREINSTALLED SYSTEM APPS -- DISABLED, not uninstalled (pm disable-user).
+# Some Samsung firmware RE-INSTALLS uninstalled preloads on boot; disabling is
+# the most durable stock method. Reverse: `pm enable --user 0 <pkg>`.
+# ---------------------------------------------------------------------------
+PRELOAD_DISABLE=(
   # --- Facebook / Meta installers ---
   com.facebook.appmanager
   com.facebook.services
@@ -96,7 +110,6 @@ UNINSTALL_PACKAGES=(
   com.samsung.android.mdecservice          # Call & text on other devices
 
   # --- Cloud / partner ---
-  com.microsoft.skydrive                   # OneDrive (preinstalled)
   com.google.android.apps.tachyon          # Google Meet (preinstalled on some)
   com.sec.android.easyMover                # Smart Switch transfer agent
   com.sec.android.easyMover.Agent          # Smart Switch receiving stub
@@ -118,13 +131,6 @@ UNINSTALL_PACKAGES=(
   com.samsung.android.app.find             # Find
   com.samsung.android.app.tips             # Samsung Tips
   com.sec.android.app.shealth              # Samsung Health
-
-  # --- Store apps (reinstall from Play Store; install-existing won't restore) ---
-  com.facebook.katana                      # Facebook
-  com.google.android.apps.photos           # Google Photos
-  com.google.android.videos                # Google TV
-  com.microsoft.office.outlook             # Outlook
-  com.microsoft.appmanager                 # Link to Windows
 
   # --- Google background agents / telemetry / preloads (Android Auto KEPT) ---
   com.google.android.adservices.api        # Privacy Sandbox ads
@@ -231,16 +237,7 @@ apply_replace_role() {
 }
 
 apply_disable() {
-  echo ">> Ensuring replacements exist and are enabled"
-  for p in "$BROWSER_REPLACEMENT" "$SMS_REPLACEMENT"; do
-    printf '   %-52s ' "$p"
-    "${ADB[@]}" shell cmd package install-existing --user 0 "$p" >/dev/null 2>&1 || true
-    "${ADB[@]}" shell pm enable --user 0 "$p" >/dev/null 2>&1 || true
-    pkg_enabled "$p" && echo "ok" || echo "unavailable (skipping its swap)"
-  done
-
-  echo
-  echo ">> Uninstalling system bloat (pm uninstall --user 0)"
+  echo ">> Uninstalling store apps (pm uninstall --user 0)"
   for p in "${UNINSTALL_PACKAGES[@]}"; do
     printf '   %-52s ' "$p"
     if pkg_installed "$p"; then
@@ -251,7 +248,18 @@ apply_disable() {
   done
 
   echo
-  echo ">> Replacing stock browser/SMS (only if replacement present)"
+  echo ">> Disabling preinstalled apps (pm disable-user --user 0)"
+  for p in "${PRELOAD_DISABLE[@]}" "${PACKAGES[@]}"; do
+    printf '   %-52s ' "$p"
+    if pkg_installed "$p"; then
+      "${ADB[@]}" shell pm disable-user --user 0 "$p" 2>&1 | tr -d '\r' | tail -n1
+    else
+      echo "not present"
+    fi
+  done
+
+  echo
+  echo ">> Replacing stock browser/SMS (only if replacement present & enabled)"
   if pkg_enabled "$BROWSER_REPLACEMENT"; then
     printf '   %-52s ' "$BROWSER_REPLACEMENT"
     "${ADB[@]}" shell cmd role add-role-holder --user 0 android.app.role.BROWSER "$BROWSER_REPLACEMENT" >/dev/null 2>&1 && echo "set default browser" || echo "role set failed"
@@ -267,17 +275,6 @@ apply_disable() {
   else
     echo "   skip SMS swap (no replacement)"
   fi
-
-  echo
-  echo ">> Disabling packages (pm disable-user --user 0)"
-  for p in "${PACKAGES[@]}"; do
-    printf '   %-52s ' "$p"
-    if pkg_installed "$p"; then
-      "${ADB[@]}" shell pm disable-user --user 0 "$p" 2>&1 | tr -d '\r' | tail -n1
-    else
-      echo "not present"
-    fi
-  done
 
   echo
   echo ">> Restricting background (standby bucket = restricted)"
@@ -299,8 +296,8 @@ apply_disable() {
 }
 
 apply_restore() {
-  echo ">> Reinstalling removed packages for user 0"
-  for p in "${UNINSTALL_PACKAGES[@]}" "${REPLACED_PACKAGES[@]}"; do
+  echo ">> Reinstalling uninstalled + re-enabling disabled packages"
+  for p in "${UNINSTALL_PACKAGES[@]}" "${REPLACED_PACKAGES[@]}" "${PRELOAD_DISABLE[@]}"; do
     printf '   %-52s ' "$p"
     "${ADB[@]}" shell cmd package install-existing --user 0 "$p" 2>&1 | tr -d '\r' | tail -n1
     "${ADB[@]}" shell pm enable --user 0 "$p" >/dev/null 2>&1 || true
@@ -339,6 +336,12 @@ show_list() {
   echo ">> Uninstalled-for-user packages (expected absent above):"
   for p in "${UNINSTALL_PACKAGES[@]}" "${REPLACED_PACKAGES[@]}"; do
     if pkg_installed "$p"; then echo "   $p => still installed"; else echo "   $p => uninstalled (user 0)"; fi
+  done
+  echo
+  echo ">> Preload disable states (enabled=1 => firmware re-enabled it):"
+  for p in "${PRELOAD_DISABLE[@]}"; do
+    printf '   %-55s ' "$p"
+    if pkg_installed "$p"; then "${ADB[@]}" shell dumpsys package "$p" 2>/dev/null | grep -m1 -oE "enabled=[0-9]+" | tr -d '\r'; else echo "not present"; fi
   done
   echo
   echo ">> Default roles:"
