@@ -150,6 +150,9 @@ UNINSTALL_PACKAGES=(
   com.samsung.android.stickercenter         # AR stickers
   com.samsung.app.newtrim                   # video trim
   com.sec.android.mimage.avatarstickers     # AR Emoji / avatar stickers
+  com.samsung.android.themestore            # Galaxy Themes store
+  com.samsung.android.themecenter           # theme apply engine
+  # com.samsung.android.app.dressroom is KEPT (wallpaper/theme engine)
 )
 
 # ---------------------------------------------------------------------------
