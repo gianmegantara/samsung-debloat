@@ -1,14 +1,14 @@
 # Samsung debloat script
 
-A generic ADB debloat for Samsung One UI devices (tested on Galaxy A52s 5G / `SM-A528B`). It removes/quiets **preinstalled system bloat only** — no user-installed apps, nothing personal or region-specific — so it is safe to run on any Samsung phone. Everything is **per-user and reversible**; no root required.
+A practical ADB debloat for Samsung One UI devices (tested on Galaxy A52s 5G / `SM-A528B`). It removes/quiets **preinstalled system and Samsung apps** and skips anything not present on the device, so it is safe to run on any Samsung phone. Everything is **per-user and reversible**; no root required.
 
 ## What it does
 
 | Step | Detail |
 |---|---|
-| Uninstalls (user 0) | Facebook/Meta installers, Bixby suite, Game services, AR Emoji/Zone, Samsung Free, Kids Mode, camera sticker preloads, Multi Control, Call & Text on other devices, OneDrive, Google Meet, Smart Switch agents |
-| Replaces stock apps | Samsung Internet → Chrome, Samsung Messages → Google Messages — **only if the replacement is present** |
-| Disables (`disable-user`) | Bixby Routines (`rubin.app`), Google Location History (`gms.location.history`) |
+| Uninstalls (user 0) | Facebook/Meta installers, Bixby suite, Game services, AR Emoji/Zone, Samsung Free, Kids Mode, camera sticker preloads, Multi Control, Call & Text on other devices, OneDrive, Google Meet, Smart Switch agents, Samsung Cloud, SmartThings, **Samsung Calendar/Reminder/Pass/Pay, Galaxy Store, Samsung Gift** |
+| Replaces stock apps | Samsung Internet → Chrome, Samsung Messages → Google Messages — **only if the replacement is present and enabled** |
+| Disables (`disable-user`) | Bixby Routines (`rubin.app`), Google Location History (`gms.location.history`), Game Optimizing Service (`game.gos`), plus optional telemetry/agent services (Aura, diagnostics, Hiya, Link to Windows, …) |
 
 `gms.location.history` is only ever **disabled**, never uninstalled (it is a Play Services module).
 

@@ -103,6 +103,16 @@ UNINSTALL_PACKAGES=(
   com.samsung.android.scloud               # Samsung Cloud
   com.samsung.android.app.homestar         # SmartThings
   # com.google.android.ims is KEPT (RCS backend for Google Messages)
+
+  # --- Optional Samsung apps / preloads (skipped if not present) ---
+  com.samsung.android.calendar             # Samsung Calendar
+  com.samsung.android.app.reminder         # Samsung Reminder
+  com.samsung.android.samsungpass          # Samsung Pass
+  com.samsung.android.samsungpassautofill
+  com.samsung.android.spayfw               # Samsung Pay/Wallet framework
+  com.samsung.android.rajaampat            # Samsung Pay issuer preload
+  com.sec.android.app.samsungapps          # Galaxy Store
+  com.srin.indramayu                       # "Samsung Gift Indonesia" preload
 )
 
 # ---------------------------------------------------------------------------
