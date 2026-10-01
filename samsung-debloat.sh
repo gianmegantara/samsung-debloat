@@ -182,13 +182,12 @@ PACKAGES=(
   com.samsung.android.dsms
   com.sec.android.sdhms
   com.sec.android.diagmonagent
-  com.samsung.android.sm.devicesecurity
   com.samsung.crane
   com.samsung.cmh
   com.samsung.android.gru
-  com.samsung.android.rampart
   com.hiya.star                            # Hiya caller ID
   com.samsung.android.smartcallprovider
+  # com.samsung.android.sm.devicesecurity / com.samsung.android.rampart are KEPT (App protection / Device security)
 )
 
 # Apps set to the RESTRICTED standby bucket (bucket 45).
