@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 #
 # samsung-debloat.sh
-# Generic debloat for Samsung One UI devices (tested on Galaxy A52s 5G / SM-A528B).
-# Removes/quiets common PREINSTALLED SYSTEM bloat only -- nothing personal or
-# region-specific, so it is safe to run on any Samsung phone.
+# Debloat for Samsung One UI devices (tested on Galaxy A52s 5G / SM-A528B and Galaxy A24 / SM-A245F).
+# Removes/quiets preinstalled system, partner and Samsung apps plus a set of
+# background/telemetry agents. Every package is presence-checked at runtime, so
+# anything not on the device is simply skipped -- safe to run on any Samsung phone.
 #
 # Usage:
 #   ./samsung-debloat.sh            # apply
@@ -58,8 +59,9 @@ pkg_enabled() {
 }
 
 # ---------------------------------------------------------------------------
-# Universal preinstalled SYSTEM bloat (safe for any Samsung).
-# All entries are OEM/partner preloads -- no user-installed or regional apps.
+# UNINSTALLED for user 0 (pm uninstall --user 0). Presence-checked at runtime.
+# Reverse: `cmd package install-existing --user 0 <pkg>` (system apps) or
+# reinstall from the store (store apps).
 # ---------------------------------------------------------------------------
 UNINSTALL_PACKAGES=(
   # --- Facebook / Meta installers ---
