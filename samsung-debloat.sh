@@ -113,6 +113,14 @@ UNINSTALL_PACKAGES=(
   com.samsung.android.rajaampat            # Samsung Pay issuer preload
   com.sec.android.app.samsungapps          # Galaxy Store
   com.srin.indramayu                       # "Samsung Gift Indonesia" preload
+  com.samsung.android.app.find             # Find
+  com.samsung.android.app.tips             # Samsung Tips
+  com.sec.android.app.shealth              # Samsung Health
+
+  # --- Store apps (reinstall from Play Store; install-existing won't restore) ---
+  com.facebook.katana                      # Facebook
+  com.google.android.videos                # Google TV
+  com.microsoft.office.outlook             # Outlook
 )
 
 # ---------------------------------------------------------------------------
