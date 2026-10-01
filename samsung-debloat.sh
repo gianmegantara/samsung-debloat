@@ -50,6 +50,13 @@ pkg_installed() {
   "${ADB[@]}" shell pm list packages 2>/dev/null | tr -d '\r' | grep -qx "package:$1"
 }
 
+# enabled = state 0 (default) or 1 (enabled); 2/3/4 = disabled
+pkg_enabled() {
+  local st
+  st=$("${ADB[@]}" shell dumpsys package "$1" 2>/dev/null | grep -m1 -oE "enabled=[0-9]+" | grep -oE "[0-9]+$")
+  [ "${st:-9}" = "0" ] || [ "${st:-9}" = "1" ]
+}
+
 # ---------------------------------------------------------------------------
 # Universal preinstalled SYSTEM bloat (safe for any Samsung).
 # All entries are OEM/partner preloads -- no user-installed or regional apps.
@@ -149,11 +156,12 @@ apply_replace_role() {
 }
 
 apply_disable() {
-  echo ">> Ensuring replacements exist"
+  echo ">> Ensuring replacements exist and are enabled"
   for p in "$BROWSER_REPLACEMENT" "$SMS_REPLACEMENT"; do
     printf '   %-52s ' "$p"
     "${ADB[@]}" shell cmd package install-existing --user 0 "$p" >/dev/null 2>&1 || true
-    pkg_installed "$p" && echo "ok" || echo "unavailable (skipping its swap)"
+    "${ADB[@]}" shell pm enable --user 0 "$p" >/dev/null 2>&1 || true
+    pkg_enabled "$p" && echo "ok" || echo "unavailable (skipping its swap)"
   done
 
   echo
@@ -169,14 +177,14 @@ apply_disable() {
 
   echo
   echo ">> Replacing stock browser/SMS (only if replacement present)"
-  if pkg_installed "$BROWSER_REPLACEMENT"; then
+  if pkg_enabled "$BROWSER_REPLACEMENT"; then
     printf '   %-52s ' "$BROWSER_REPLACEMENT"
     "${ADB[@]}" shell cmd role add-role-holder --user 0 android.app.role.BROWSER "$BROWSER_REPLACEMENT" >/dev/null 2>&1 && echo "set default browser" || echo "role set failed"
     "${ADB[@]}" shell pm uninstall --user 0 com.sec.android.app.sbrowser >/dev/null 2>&1 || true
   else
     echo "   skip browser swap (no replacement)"
   fi
-  if pkg_installed "$SMS_REPLACEMENT"; then
+  if pkg_enabled "$SMS_REPLACEMENT"; then
     printf '   %-52s ' "$SMS_REPLACEMENT"
     "${ADB[@]}" shell cmd role add-role-holder --user 0 android.app.role.SMS "$SMS_REPLACEMENT" >/dev/null 2>&1 && echo "set default SMS" || echo "role set failed"
     "${ADB[@]}" shell settings put secure sms_default_application "$SMS_REPLACEMENT" >/dev/null 2>&1 || true
@@ -220,6 +228,7 @@ apply_restore() {
   for p in "${UNINSTALL_PACKAGES[@]}" "${REPLACED_PACKAGES[@]}"; do
     printf '   %-52s ' "$p"
     "${ADB[@]}" shell cmd package install-existing --user 0 "$p" 2>&1 | tr -d '\r' | tail -n1
+    "${ADB[@]}" shell pm enable --user 0 "$p" >/dev/null 2>&1 || true
   done
 
   echo
