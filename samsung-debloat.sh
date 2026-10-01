@@ -68,9 +68,10 @@ UNINSTALL_PACKAGES=(
   com.samsung.android.svoiceime
 
   # --- Games / AR ---
-  com.samsung.android.game.gamehome
-  com.samsung.android.game.gametools
-  com.samsung.android.game.gos
+  com.samsung.android.game.gamehome        # Game Launcher
+  com.samsung.android.game.gametools       # Game Tools
+  com.samsung.android.game.gameboosterplus # Game Booster Plus overlay
+  com.samsung.android.game.immersivemode   # Immersive Mode
   com.samsung.android.arzone
   com.samsung.android.aremoji
   com.samsung.android.aremojieditor
@@ -115,6 +116,7 @@ SMS_REPLACEMENT=com.google.android.apps.messaging
 PACKAGES=(
   com.samsung.android.rubin.app            # Bixby Routines
   com.google.android.gms.location.history  # Google Location History (GMS module -> disable, never uninstall)
+  com.samsung.android.game.gos             # Game Optimizing Service (privileged; reinstalls itself -> disable, not uninstall)
 )
 
 # Apps set to the RESTRICTED standby bucket (bucket 45).
