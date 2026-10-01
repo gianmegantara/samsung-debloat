@@ -124,6 +124,23 @@ PACKAGES=(
   com.samsung.android.rubin.app            # Bixby Routines
   com.google.android.gms.location.history  # Google Location History (GMS module -> disable, never uninstall)
   com.samsung.android.game.gos             # Game Optimizing Service (privileged; reinstalls itself -> disable, not uninstall)
+
+  # --- Telemetry / optional Samsung agents (safe to disable) ---
+  com.aura.oobe.samsung.gl                 # Aura setup/marketing partner
+  com.samsung.android.smartsuggestions     # suggestion engine
+  com.samsung.android.da.daagent
+  com.samsung.android.dqagent
+  com.samsung.android.dsms
+  com.sec.android.sdhms
+  com.sec.android.diagmonagent
+  com.samsung.android.sm.devicesecurity
+  com.samsung.crane
+  com.samsung.cmh
+  com.samsung.android.gru
+  com.samsung.android.rampart
+  com.hiya.star                            # Hiya caller ID
+  com.samsung.android.smartcallprovider
+  com.microsoft.appmanager                 # Link to Windows
 )
 
 # Apps set to the RESTRICTED standby bucket (bucket 45).
