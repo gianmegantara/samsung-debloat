@@ -119,6 +119,7 @@ UNINSTALL_PACKAGES=(
 
   # --- Store apps (reinstall from Play Store; install-existing won't restore) ---
   com.facebook.katana                      # Facebook
+  com.google.android.apps.photos           # Google Photos
   com.google.android.videos                # Google TV
   com.microsoft.office.outlook             # Outlook
   com.microsoft.appmanager                 # Link to Windows
