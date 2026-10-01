@@ -153,6 +153,14 @@ UNINSTALL_PACKAGES=(
   com.samsung.android.themestore            # Galaxy Themes store
   com.samsung.android.themecenter           # theme apply engine
   # com.samsung.android.app.dressroom is KEPT (wallpaper/theme engine)
+
+  # --- Samsung continuity (multi-device / Tab-PC features) ---
+  com.samsung.android.mdx                  # Multi-device/continuity framework
+  com.samsung.android.mdx.kit
+  com.samsung.android.mdx.quickboard
+  com.samsung.android.mcfserver            # Multi Control server
+  com.samsung.android.beaconmanager        # BLE beacon handling
+  com.samsung.android.aware.service        # context awareness
 )
 
 # ---------------------------------------------------------------------------
