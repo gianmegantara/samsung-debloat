@@ -137,6 +137,16 @@ UNINSTALL_PACKAGES=(
   com.google.mainline.telemetry
   com.snap.camerakit.plugin.v1             # Snapchat camera-kit preload
   # com.google.android.projection.gearhead is KEPT (Android Auto)
+
+  # --- Samsung feature extras ---
+  com.samsung.android.app.cocktailbarservice  # Edge panels
+  com.samsung.android.app.appsedge
+  com.samsung.android.app.taskedge
+  com.samsung.android.app.clipboardedge
+  com.samsung.android.ardrawing             # AR Doodle
+  com.samsung.android.visualars             # Visual AR
+  com.samsung.android.stickercenter         # AR stickers
+  com.samsung.app.newtrim                   # video trim
 )
 
 # ---------------------------------------------------------------------------
