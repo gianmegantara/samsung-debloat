@@ -133,7 +133,7 @@ PRELOAD_DISABLE=(
   com.samsung.android.mdecservice
   com.samsung.android.app.parentalcare
   com.samsung.android.app.watchmanagerstub
-  com.samsung.android.app.aodservice
+  # com.samsung.android.app.aodservice KEPT -- disabling it breaks "Wallpaper and style"
   com.samsung.android.app.sharelive
   com.samsung.android.app.smartcapture
   com.samsung.android.bluelightfilter
@@ -174,7 +174,7 @@ PRELOAD_DISABLE=(
   com.samsung.android.dqagent
   com.samsung.android.dsms
   com.sec.android.sdhms
-  com.sec.android.diagmonagent
+  # com.sec.android.diagmonagent KEPT -- disabling it crash-loops
   com.samsung.crane
   com.samsung.cmh
   com.samsung.android.gru
@@ -218,7 +218,7 @@ PACKAGES=(
   com.samsung.android.dqagent
   com.samsung.android.dsms
   com.sec.android.sdhms
-  com.sec.android.diagmonagent
+  # com.sec.android.diagmonagent KEPT -- disabling it crash-loops
   com.samsung.crane
   com.samsung.cmh
   com.samsung.android.gru
