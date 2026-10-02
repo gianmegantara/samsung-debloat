@@ -126,7 +126,7 @@ PRELOAD_DISABLE=(
   com.samsung.android.samsungpassautofill
   com.samsung.android.spayfw               # Samsung Pay/Wallet framework
   com.samsung.android.rajaampat            # Samsung Pay issuer preload
-  com.sec.android.app.samsungapps          # Galaxy Store
+  # com.sec.android.app.samsungapps        # Galaxy Store -- KEPT (needed for Samsung app updates)
   com.srin.indramayu                       # "Samsung Gift Indonesia" preload
   com.samsung.android.app.find             # Find
   com.samsung.android.app.tips             # Samsung Tips
@@ -221,6 +221,7 @@ RESTRICTED_APPS=(
 #   com.samsung.android.lool     Device Care
 #   com.sec.android.daemonapp    Weather
 #   com.google.android.apps.turbo  Adaptive Battery
+#   com.sec.android.app.samsungapps  Galaxy Store (Samsung app updates)
 #   com.samsung.android.providers.contacts / com.samsung.android.dialer  (core)
 #
 # Already disabled by Samsung/Google at the factory on some models (leave alone):
