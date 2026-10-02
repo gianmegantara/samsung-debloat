@@ -68,6 +68,7 @@ UNINSTALL_PACKAGES=(
   com.google.android.apps.photos           # Google Photos
   com.google.android.videos                # Google TV
   com.microsoft.office.outlook             # Outlook
+  com.sec.android.diagmonagent             # DiagMonAgent (uninstall, not disable -- disabling crash-loops)
 )
 
 # ---------------------------------------------------------------------------
@@ -174,7 +175,6 @@ PRELOAD_DISABLE=(
   com.samsung.android.dqagent
   com.samsung.android.dsms
   com.sec.android.sdhms
-  # com.sec.android.diagmonagent KEPT -- disabling it crash-loops
   com.samsung.crane
   com.samsung.cmh
   com.samsung.android.gru
@@ -218,7 +218,6 @@ PACKAGES=(
   com.samsung.android.dqagent
   com.samsung.android.dsms
   com.sec.android.sdhms
-  # com.sec.android.diagmonagent KEPT -- disabling it crash-loops
   com.samsung.crane
   com.samsung.cmh
   com.samsung.android.gru
