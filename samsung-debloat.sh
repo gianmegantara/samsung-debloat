@@ -68,8 +68,6 @@ UNINSTALL_PACKAGES=(
   com.google.android.apps.photos           # Google Photos
   com.google.android.videos                # Google TV
   com.microsoft.office.outlook             # Outlook
-  com.microsoft.appmanager                 # Link to Windows
-  com.microsoft.skydrive                   # OneDrive
 )
 
 # ---------------------------------------------------------------------------
@@ -78,62 +76,8 @@ UNINSTALL_PACKAGES=(
 # the most durable stock method. Reverse: `pm enable --user 0 <pkg>`.
 # ---------------------------------------------------------------------------
 PRELOAD_DISABLE=(
-  # --- Facebook / Meta installers ---
-  com.facebook.appmanager
-  com.facebook.services
-  com.facebook.system
-
-  # --- Bixby suite ---
-  com.samsung.android.bixby.agent
-  com.samsung.android.bixby.wakeup
-  com.samsung.android.bixbyvision.framework
-  com.samsung.android.app.settings.bixby
-  com.samsung.android.svoiceime
-
-  # --- Games / AR ---
-  com.samsung.android.game.gamehome        # Game Launcher
-  com.samsung.android.game.gametools       # Game Tools
-  com.samsung.android.game.gameboosterplus # Game Booster Plus overlay
-  com.samsung.android.game.immersivemode   # Immersive Mode
-  com.samsung.android.arzone
-  com.samsung.android.aremoji
-  com.samsung.android.aremojieditor
-
-  # --- Samsung preloads / promos ---
-  com.samsung.android.app.spage            # Samsung Free (news feed panel)
-  com.samsung.android.kidsinstaller        # Kids Mode
-  com.samsung.android.livestickers
-  com.samsung.android.app.camera.sticker.facearavatar.preload
-
-  # --- Cross-device / continuity ---
-  com.samsung.android.mcfds                # Multi Control
-  com.samsung.android.mdecservice          # Call & text on other devices
-
-  # --- Cloud / partner ---
-  com.google.android.apps.tachyon          # Google Meet (preinstalled on some)
-  com.sec.android.easyMover                # Smart Switch transfer agent
-  com.sec.android.easyMover.Agent          # Smart Switch receiving stub
-
-  # --- Universal Samsung/Google services ---
-  com.samsung.android.scloud               # Samsung Cloud
-  com.samsung.android.app.homestar         # SmartThings
-  # com.google.android.ims is KEPT (RCS backend for Google Messages)
-
-  # --- Optional Samsung apps / preloads (skipped if not present) ---
-  com.samsung.android.calendar             # Samsung Calendar
-  com.samsung.android.app.reminder         # Samsung Reminder
-  com.samsung.android.samsungpass          # Samsung Pass
-  com.samsung.android.samsungpassautofill
-  com.samsung.android.spayfw               # Samsung Pay/Wallet framework
-  com.samsung.android.rajaampat            # Samsung Pay issuer preload
-  # com.sec.android.app.samsungapps        # Galaxy Store -- KEPT (needed for Samsung app updates)
-  com.srin.indramayu                       # "Samsung Gift Indonesia" preload
-  com.samsung.android.app.find             # Find
-  com.samsung.android.app.tips             # Samsung Tips
-  com.sec.android.app.shealth              # Samsung Health
-
-  # --- Google background agents / telemetry / preloads (Android Auto KEPT) ---
-  com.google.android.adservices.api        # Privacy Sandbox ads
+  # --- Google background agents / telemetry (Android Auto + GMS kept) ---
+  com.google.android.adservices.api
   com.google.mainline.adservices
   com.google.android.ondevicepersonalization.services
   com.google.android.feedback
@@ -145,30 +89,107 @@ PRELOAD_DISABLE=(
   com.google.android.health.connect.backuprestore
   com.google.android.federatedcompute
   com.google.mainline.telemetry
-  com.snap.camerakit.plugin.v1             # Snapchat camera-kit preload
-  # com.google.android.projection.gearhead is KEPT (Android Auto)
+  com.google.ar.core                        # ARCore (re-enable if you use AR apps)
+  com.google.android.apps.tachyon           # Google Meet
+  com.google.android.apps.docs              # Google Drive
+  com.google.android.apps.translate         # Google Translate
+  com.google.android.apps.youtube.music     # YouTube Music
+  com.snap.camerakit.plugin.v1              # Snapchat camera-kit preload
+  com.microsoft.appmanager                  # Link to Windows
+  com.microsoft.skydrive                    # OneDrive
 
-  # --- Samsung feature extras ---
-  com.samsung.android.app.cocktailbarservice  # Edge panels
+  # --- Samsung: Bixby ---
+  com.samsung.android.bixby.agent
+  com.samsung.android.bixby.wakeup
+  com.samsung.android.bixbyvision.framework
+  com.samsung.android.app.settings.bixby
+  com.samsung.android.svoiceime
+
+  # --- Samsung: Games / AR ---
+  com.samsung.android.game.gamehome
+  com.samsung.android.game.gametools
+  com.samsung.android.game.gos
+  com.samsung.android.arzone
+  com.samsung.android.aremoji
+  com.samsung.android.aremojieditor
+  com.samsung.android.ardrawing
+  com.samsung.android.visualars
+  com.samsung.android.stickercenter
+  com.sec.android.mimage.avatarstickers
+  com.samsung.app.newtrim
+  com.samsung.android.app.camera.sticker.facearavatar.preload
+
+  # --- Samsung: apps / services ---
+  com.samsung.android.app.spage
+  com.samsung.android.kidsinstaller
+  com.samsung.android.scloud
+  com.samsung.android.calendar
+  com.samsung.android.app.reminder
+  com.samsung.android.samsungpass
+  com.samsung.android.samsungpassautofill
+  com.samsung.android.spayfw
+  com.samsung.android.rajaampat
+  com.samsung.android.mcfds
+  com.samsung.android.mdecservice
+  com.samsung.android.app.parentalcare
+  com.samsung.android.app.watchmanagerstub
+  com.samsung.android.app.aodservice
+  com.samsung.android.app.sharelive
+  com.samsung.android.app.smartcapture
+  com.samsung.android.bluelightfilter
+  com.samsung.android.callassistant
+  com.samsung.android.mapsagent
+  com.samsung.storyservice
+  com.samsung.android.video
+  com.samsung.android.singletake.service
+  com.samsung.android.visionintelligence
+  com.samsung.android.sdk.ocr
+  com.samsung.android.sdk.handwriting
+  com.samsung.android.intellivoiceservice
+  com.samsung.SMT
+  com.diotek.sec.lookup.dictionary
+  com.sec.android.app.magnifier
+  com.sec.android.easyonehand
+  com.sec.android.app.soundalive
+  com.sec.android.mimage.photoretouching
+
+  # --- Samsung: Edge panels ---
+  com.samsung.android.app.cocktailbarservice
   com.samsung.android.app.appsedge
   com.samsung.android.app.taskedge
   com.samsung.android.app.clipboardedge
-  com.samsung.android.ardrawing             # AR Doodle
-  com.samsung.android.visualars             # Visual AR
-  com.samsung.android.stickercenter         # AR stickers
-  com.samsung.app.newtrim                   # video trim
-  com.sec.android.mimage.avatarstickers     # AR Emoji / avatar stickers
-  com.samsung.android.themestore            # Galaxy Themes store
-  com.samsung.android.themecenter           # theme apply engine
-  # com.samsung.android.app.dressroom is KEPT (wallpaper/theme engine)
 
-  # --- Samsung continuity (multi-device / Tab-PC features) ---
-  com.samsung.android.mdx                  # Multi-device/continuity framework
+  # --- Samsung: continuity ---
+  com.samsung.android.mdx
   com.samsung.android.mdx.kit
   com.samsung.android.mdx.quickboard
-  com.samsung.android.mcfserver            # Multi Control server
-  com.samsung.android.beaconmanager        # BLE beacon handling
-  com.samsung.android.aware.service        # context awareness
+  com.samsung.android.mcfserver
+  com.samsung.android.beaconmanager
+  com.samsung.android.aware.service
+
+  # --- Samsung: telemetry / agents ---
+  com.aura.oobe.samsung.gl
+  com.samsung.android.smartsuggestions
+  com.samsung.android.da.daagent
+  com.samsung.android.dqagent
+  com.samsung.android.dsms
+  com.sec.android.sdhms
+  com.sec.android.diagmonagent
+  com.samsung.crane
+  com.samsung.cmh
+  com.samsung.android.gru
+  com.hiya.star
+  com.samsung.android.smartcallprovider
+
+  # --- Other ---
+  com.samsung.android.messaging            # Samsung Messages (Google Messages is default)
+  com.srin.indramayu                       # "Samsung Gift Indonesia" preload
+  com.sec.android.easyMover                # Smart Switch transfer agent
+  com.sec.android.easyMover.Agent          # Smart Switch receiving stub
+  # com.samsung.android.themestore / themecenter are PROTECTED (cannot disable)
+  # com.sec.android.app.samsungapps          Galaxy Store -- KEPT (Samsung app updates)
+  # com.google.android.projection.gearhead   Android Auto -- KEPT
+  # com.samsung.android.app.dressroom        wallpaper/theme engine -- KEPT
 )
 
 # ---------------------------------------------------------------------------
